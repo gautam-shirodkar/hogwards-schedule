@@ -1,12 +1,13 @@
 import { configureStore } from "@reduxjs/toolkit";
 import createSagaMiddleware from "redux-saga";
-import { teacherSlice } from "./slices/teacher/teacher.slice";
+import { ITeacherstate, teacherSlice } from "./slices/teacher/teacher.slice";
 import { IStudentState, studentSlice } from "./slices/student/student.slice";
 import rootSaga from "./rootSaga";
 
 const sagaMiddleware = createSagaMiddleware();
 
 export interface State {
+  teachers: ITeacherstate;
   students: IStudentState;
 }
 

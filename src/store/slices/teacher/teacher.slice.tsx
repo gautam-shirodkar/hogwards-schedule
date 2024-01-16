@@ -1,14 +1,31 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-export interface ITeacher {}
+export interface ITeacher {
+  id: string;
+  name: string;
+  priority: number;
+}
+
+export interface IAttendance {
+  id: string;
+  attendance: string;
+}
+
+export interface ITeacherstate {
+  teachers: ITeacher[];
+  attendance: IAttendance[];
+  loading: boolean;
+}
+
+export const initialState = {
+  teachers: [],
+  attendance: {},
+  loading: false,
+};
 
 export const teacherSlice = createSlice({
   name: "teacher",
-  initialState: {
-    teachers: [],
-    attendance: {},
-    loading: false,
-  },
+  initialState,
   reducers: {
     getTeachers: (state) => {
       state.loading = true;
@@ -18,7 +35,7 @@ export const teacherSlice = createSlice({
       state.teachers = action.payload;
     },
     getTeacherAttendance: (state) => {
-      state.loading = false;
+      return state;
     },
     setTeacherAttendance: (state, action) => {
       state.attendance = action.payload;

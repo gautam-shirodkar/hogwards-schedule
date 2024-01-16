@@ -1,17 +1,17 @@
-import { put, takeLatest } from "redux-saga/effects";
+import { call, put, takeLatest } from "redux-saga/effects";
 import { teacherActions } from "./teacher.slice";
 import { teacherApi, teacherAttendanceApi } from "./teacher.api";
 
-function* fetchTeachers() {
+export function* fetchTeachers() {
   try {
-    const teachersData = yield teacherApi();
+    const teachersData = yield call(teacherApi);
     yield put(teacherActions.setTeachers(teachersData));
   } catch (err) {}
 }
 
-function* fetchTeachersAttendance() {
+export function* fetchTeachersAttendance() {
   try {
-    const teachersAttendanceData = yield teacherAttendanceApi();
+    const teachersAttendanceData = yield call(teacherAttendanceApi);
     yield put(teacherActions.setTeacherAttendance(teachersAttendanceData));
   } catch (err) {}
 }

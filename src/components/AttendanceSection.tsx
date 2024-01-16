@@ -12,7 +12,7 @@ const AttendanceSection = ({ onTeacherAttendanceChange }) => {
           <div className="font-semibold">Attendance</div>
         </div>
       </div>
-      {teachers.length ? (
+      {teachers?.length ? (
         <div className="divide-y divide-gray-300">
           <div className="grid grid-cols-2 items-center gap-4 p-4">
             {teachers.map((teacher) => (
@@ -20,8 +20,9 @@ const AttendanceSection = ({ onTeacherAttendanceChange }) => {
                 <div>{teacher.name}</div>
                 <div>
                   <select
+                    data-testid={teacher.id}
                     onChange={(e) =>
-                      onTeacherAttendanceChange(teacher.name, e.target.value)
+                      onTeacherAttendanceChange(teacher.id, e.target.value)
                     }
                   >
                     <option value="Present">Present</option>

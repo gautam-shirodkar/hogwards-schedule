@@ -1,8 +1,20 @@
 // CurrentScheduleSection.js
 import { Fragment } from "react";
 import Loader from "./Loader";
+import { useSelector } from "react-redux";
+import { State } from "../store/store";
 
-const CurrentScheduleSection = ({ studentAllocations }) => {
+const CurrentScheduleSection = () => {
+  const { teachers } = useSelector((state: State) => state.teachers);
+  const { allocations: studentAllocations } = useSelector(
+    (state: State) => state.students
+  );
+  const getTeacherName = (teacherId: string) => {
+    return (
+      teachers.find((teacher) => teacher.id === teacherId)?.name ||
+      "Not Assigned"
+    );
+  };
   return (
     <div className="mt-8 min-w-[40%] mx-auto bg-white shadow-md rounded-md overflow-hidden">
       <div className="bg-gray-200 p-4">
@@ -12,14 +24,14 @@ const CurrentScheduleSection = ({ studentAllocations }) => {
           <div className="font-semibold">Teacher</div>
         </div>
       </div>
-      {studentAllocations.length ? (
+      {studentAllocations?.length ? (
         <div className="divide-y divide-gray-300">
           <div className="grid grid-cols-3 items-center gap-4 p-4">
             {studentAllocations.map((allocation) => (
               <Fragment key={allocation.student}>
                 <div>{allocation.student}</div>
                 <div>{allocation.subject}</div>
-                <div>{allocation.teacher}</div>
+                <div>{getTeacherName(allocation.teacher)}</div>
               </Fragment>
             ))}
           </div>
