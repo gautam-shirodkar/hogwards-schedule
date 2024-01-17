@@ -10,12 +10,15 @@ export default function Home() {
       </div>
       <div className="w-1/2 p-8 flex flex-col items-center">
         <button
+          data-testid="enter-classroom"
           className="border border-black rounded-lg p-5 bg-black bg-opacity-20"
-          onClick={() => navigate("/schedule")}
+          onClick={() => {
+            console.log("navigat click");
+            navigate("/schedule");
+          }}
         >
           <h4 className="text-2xl font-bold text-black">Enter Classroom</h4>
         </button>
-
         <p className="text-black mt-4">You can see the class schedule here.</p>
       </div>
     </div>

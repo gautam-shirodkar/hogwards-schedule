@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 export interface IStudentAllocation {
   id: string;
@@ -11,7 +11,7 @@ export interface IStudentState {
   allocations: IStudentAllocation[];
 }
 
-const initialState: IStudentState = {
+export const initialState: IStudentState = {
   allocations: [],
 };
 
@@ -22,12 +22,11 @@ export const studentSlice = createSlice({
     getStudentAllocations: (state) => {
       return state;
     },
-    setStudentAllocations: (state, action) => {
+    setAllocations: (state, action: PayloadAction<IStudentAllocation[]>) => {
       state.allocations = action.payload;
     },
   },
 });
 
-export const { getStudentAllocations, setStudentAllocations } =
-  studentSlice.actions;
+export const { getStudentAllocations, setAllocations } = studentSlice.actions;
 export default studentSlice.reducer;
