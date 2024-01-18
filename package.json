@@ -54,5 +54,6 @@
   "cypress-cucumber-preprocessor": {
     "nonGlobalStepDefinitions": false,
     "stepDefinitions": "cypress/e2e/**/*.tsx"
-  }
+  },
+  "homepage": "https://gautam-shirodkar.github.io/hogwarts-schedule/"
 }
