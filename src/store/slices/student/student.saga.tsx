@@ -1,10 +1,14 @@
 import { call, put, takeLatest } from "redux-saga/effects";
-import { getStudentAllocations, setAllocations } from "./student.slice";
+import {
+  IStudentAllocation,
+  getStudentAllocations,
+  setAllocations,
+} from "./student.slice";
 import { studentAllocationApi } from "./student.api";
 
 export function* fetchStudentsAllocation() {
   try {
-    const studentsData = yield call(studentAllocationApi);
+    const studentsData: IStudentAllocation[] = yield call(studentAllocationApi);
     yield put(setAllocations(studentsData));
   } catch (err) {}
 }

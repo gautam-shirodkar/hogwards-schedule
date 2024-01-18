@@ -5,6 +5,7 @@ export interface IStudentAllocation {
   student: string;
   subject: string;
   teacher: string;
+  img: string;
 }
 
 export interface IStudentState {

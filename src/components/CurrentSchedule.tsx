@@ -1,46 +1,58 @@
-// CurrentScheduleSection.js
-import { Fragment } from "react";
 import Loader from "./Loader";
 import { useSelector } from "react-redux";
 import { State } from "../store/store";
+import Character from "./Character";
 
 const CurrentScheduleSection = () => {
   const { teachers } = useSelector((state: State) => state.teachers);
   const { allocations: studentAllocations } = useSelector(
     (state: State) => state.students
   );
-  const getTeacherName = (teacherId: string) => {
-    return (
-      teachers.find((teacher) => teacher.id === teacherId)?.name ||
-      "Not Assigned"
-    );
+  const getTeacher = (teacherId: string) => {
+    return teachers.find((teacher) => teacher.id === teacherId);
   };
-  return (
-    <div className="mt-8 min-w-[40%] mx-auto bg-white shadow-md rounded-md overflow-hidden">
-      <div className="bg-gray-200 p-4">
-        <div className="grid grid-cols-3 gap-4">
-          <div className="font-semibold">Student</div>
-          <div className="font-semibold">Subject</div>
-          <div className="font-semibold">Teacher</div>
-        </div>
+  if (!studentAllocations?.length) {
+    return (
+      <div className="flex align-center justify-center m-auto">
+        <Loader />
       </div>
-      {studentAllocations?.length ? (
-        <div className="divide-y divide-gray-300">
-          <div className="grid grid-cols-3 items-center gap-4 p-4">
-            {studentAllocations.map((allocation) => (
-              <Fragment key={allocation.student}>
-                <div>{allocation.student}</div>
-                <div>{allocation.subject}</div>
-                <div>{getTeacherName(allocation.teacher)}</div>
-              </Fragment>
-            ))}
+    );
+  }
+  return (
+    <div className="w-1/2 mx-auto">
+      {studentAllocations.map((allocation) => {
+        const teacher = getTeacher(allocation.teacher);
+        return (
+          <div
+            data-testid={`${allocation.student}-student`}
+            className="grid grid-cols-3 justify-center items-center gap-4 p-4"
+            key={allocation.student}
+          >
+            <div className="flex flex-col items-center">
+              <Character
+                img={`images/students/${allocation.img}`}
+                name={allocation.student}
+              />
+            </div>
+            <div className="text-white text-center">{allocation.subject}</div>
+            <div
+              className="flex flex-col items-center justify-center text-center"
+              data-testid={`${allocation?.teacher
+                ?.toLowerCase()
+                .replace(/\s/g, "-")}-teacher`}
+            >
+              {teacher ? (
+                <Character
+                  img={`images/staff/${teacher.img}`}
+                  name={teacher.name}
+                />
+              ) : (
+                <span className="text-white">Not Assigned</span>
+              )}
+            </div>
           </div>
-        </div>
-      ) : (
-        <div className="flex align-center justify-center mt-12">
-          <Loader />
-        </div>
-      )}
+        );
+      })}
     </div>
   );
 };

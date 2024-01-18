@@ -1,4 +1,5 @@
 import { MemoryRouter } from "react-router-dom";
+import { screen } from "@testing-library/react";
 import { renderWithProviders } from "../../utils/test-util";
 import CurrentSchedule from "../CurrentSchedule";
 import { useSelector } from "react-redux";
@@ -43,5 +44,6 @@ describe("Schedule", () => {
         <CurrentSchedule />
       </MemoryRouter>
     );
+    expect(screen.getByText("Harry Potter")).toBeInTheDocument();
   });
 });

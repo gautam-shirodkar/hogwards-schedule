@@ -1,25 +1,15 @@
-import { useNavigate } from "react-router-dom";
 export default function Home() {
-  const navigate = useNavigate();
   return (
-    <div className="bg-hogwarts-bg bg-cover h-[calc(100vh-110px)] flex justify-center items-center">
-      <div className="w-1/2 p-8 flex flex-col items-center">
-        <div className="flex justify-center items-center mt-8 w-[50%] h-[350px] bg-black bg-opacity-10 rounded-lg">
-          <img src="images/text.png" />
+    <div className=" h-[calc(100vh-120px)] flex justify-center">
+      <div className="p-8 flex flex-col items-center">
+        <div className="flex flex-col justify-center items-center my-auto h-[150px] text-center">
+          <div className="w-[50%] animate-pulse">
+            <img src="images/text.png" />
+          </div>
+          <h3 className="text-4xl font-bold font-serif text-white">
+            School of Witchcraft and Wizardry
+          </h3>
         </div>
-      </div>
-      <div className="w-1/2 p-8 flex flex-col items-center">
-        <button
-          data-testid="enter-classroom"
-          className="border border-black rounded-lg p-5 bg-black bg-opacity-20"
-          onClick={() => {
-            console.log("navigat click");
-            navigate("/schedule");
-          }}
-        >
-          <h4 className="text-2xl font-bold text-black">Enter Classroom</h4>
-        </button>
-        <p className="text-black mt-4">You can see the class schedule here.</p>
       </div>
     </div>
   );

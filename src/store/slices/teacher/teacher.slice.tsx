@@ -1,9 +1,10 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
 export interface ITeacher {
   id: string;
   name: string;
   priority: number;
+  img: string;
 }
 
 export interface IAttendance {
@@ -30,14 +31,14 @@ export const teacherSlice = createSlice({
     getTeachers: (state) => {
       state.loading = true;
     },
-    setTeachers: (state, action) => {
+    setTeachers: (state, action: PayloadAction<ITeacher[]>) => {
       state.loading = false;
       state.teachers = action.payload;
     },
     getTeacherAttendance: (state) => {
       return state;
     },
-    setTeacherAttendance: (state, action) => {
+    setTeacherAttendance: (state, action: PayloadAction<IAttendance[]>) => {
       state.attendance = action.payload;
     },
   },

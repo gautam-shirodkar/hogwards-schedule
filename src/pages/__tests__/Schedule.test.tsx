@@ -1,4 +1,5 @@
 import { MemoryRouter } from "react-router-dom";
+import { screen } from "@testing-library/react";
 import ScheduleToday from "../Schedule";
 import { renderWithProviders } from "../../utils/test-util";
 import {
@@ -53,5 +54,21 @@ describe("Schedule Today Page", () => {
         <ScheduleToday />
       </MemoryRouter>
     );
+    expect(screen.getByText("Professor Dumbledore")).toBeInTheDocument();
+    expect(screen.getByText("Harry Potter")).toBeInTheDocument();
+  });
+  test("it should render call handleAttendance when teacher attendance is changed", () => {
+    vi.mocked(useSelector).mockReturnValue({
+      teachers: MOCK_TEACHERS,
+      allocations: STUDENT_ALLOCATIONS,
+      attendance: TEACHER_ATTENDANCE,
+    });
+    renderWithProviders(
+      <MemoryRouter>
+        <ScheduleToday />
+      </MemoryRouter>
+    );
+    expect(screen.getByText("Professor Dumbledore")).toBeInTheDocument();
+    expect(screen.getByText("Harry Potter")).toBeInTheDocument();
   });
 });
