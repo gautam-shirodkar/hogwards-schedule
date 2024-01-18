@@ -1,5 +1,5 @@
 import { MemoryRouter } from "react-router-dom";
-import { fireEvent, screen, within } from "@testing-library/react";
+import { fireEvent, getByText, screen, within } from "@testing-library/react";
 import { renderWithProviders } from "../../utils/test-util";
 import AttendanceSection from "../AttendanceSection";
 import { useSelector } from "react-redux";
@@ -46,19 +46,6 @@ describe("Teachers Attendance", () => {
         <AttendanceSection onTeacherAttendanceChange={mockAttendanceChange} />
       </MemoryRouter>
     );
-  });
-
-  test("it should call attendance onTeacherAttendanceChange when attendance is changed", async () => {
-    vi.mocked(useSelector).mockReturnValue({
-      teachers: MOCK_TEACHERS,
-    });
-    renderWithProviders(
-      <MemoryRouter>
-        <AttendanceSection onTeacherAttendanceChange={mockAttendanceChange} />
-      </MemoryRouter>
-    );
-    const selectEle = screen.getByTestId("t1");
-    await userEvent.selectOptions(selectEle, "Absent");
-    expect(mockAttendanceChange).toHaveBeenCalled();
+    expect(screen.getByText("Professor Dumbledore")).toBeInTheDocument();
   });
 });

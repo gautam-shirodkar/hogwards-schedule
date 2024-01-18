@@ -1,37 +1,33 @@
-import { useState, useEffect } from "react";
+import { useEffect } from "react";
 import AttendanceSection from "../components/AttendanceSection";
 import CurrentScheduleSection from "../components/CurrentSchedule";
 import { useDispatch, useSelector } from "react-redux";
+import { teacherActions } from "../store/slices/teacher/teacher.slice";
 import {
-  IAttendance,
-  teacherActions,
-} from "../store/slices/teacher/teacher.slice";
-import {
+  IStudentAllocation,
   getStudentAllocations,
   setAllocations,
 } from "../store/slices/student/student.slice";
 import { State } from "../store/store";
 
+const subjectTeachers = [
+  {
+    subject: "Potions Master",
+    professors: ["t1", "t2", "t3", "t4", "t5"],
+  },
+  {
+    subject: "Defense Against the Dark Arts",
+    professors: ["t1", "t2", "t3", "t7", "t8"],
+  },
+];
+
 const ScheduleToday = () => {
   const dispatch = useDispatch();
-  const { teachers, attendance } = useSelector(
+
+  const { teachers, attendance: teacherAttendance } = useSelector(
     (state: State) => state.teachers
   );
-
   const { allocations } = useSelector((state: State) => state.students);
-
-  const subjectTeachers = [
-    {
-      subject: "Potions Master",
-      professors: ["t1", "t2", "t3", "t4", "t5"],
-    },
-    {
-      subject: "Defense Against the Dark Arts",
-      professors: ["t1", "t2", "t3", "t7", "t8"],
-    },
-  ];
-
-  const [teacherAttendance, setTeacherAttendance] = useState<IAttendance[]>([]);
 
   useEffect(() => {
     !teachers?.length && dispatch(teacherActions.getTeachers());
@@ -40,22 +36,13 @@ const ScheduleToday = () => {
     !allocations?.length && dispatch(getStudentAllocations());
   }, []);
 
-  useEffect(() => {
-    setTeacherAttendance(attendance);
-  }, [attendance]);
-
-  // useEffect(() => {
-  //   console.log("Set", allocations);
-  //   setStudentAllocations(allocations);
-  // }, [allocations]);
-
-  const handleTeacherAttendanceChange = (id, attendance) => {
+  const handleTeacherAttendanceChange = (id: string, attendance: string) => {
     const updateData = [...teacherAttendance];
     const updateIndex = teacherAttendance.findIndex(
       (teacher) => teacher.id === id
     );
     updateData[updateIndex] = { ...updateData[updateIndex], attendance };
-    setTeacherAttendance(updateData);
+    dispatch(teacherActions.setTeacherAttendance(updateData));
   };
 
   const getAttendance = (teacherId: string) => {
@@ -66,7 +53,7 @@ const ScheduleToday = () => {
     );
   };
 
-  const assignTeacher = (student) => {
+  const assignTeacher = (student: IStudentAllocation) => {
     const currentPriority =
       teachers.find((teacher) => teacher.id === student.teacher)?.priority || 1;
 
@@ -82,7 +69,7 @@ const ScheduleToday = () => {
           allSubjectProfessors?.some((subProf) => subProf === professor.id)
       )
       .sort((a, b) => a.priority - b.priority);
-    return otherProfessors[0]?.id || "Not Assigned";
+    return otherProfessors[0]?.id || "";
   };
 
   const getTeacher = (teacherId: string) => {
@@ -90,12 +77,9 @@ const ScheduleToday = () => {
   };
 
   useEffect(() => {
-    // console.log("studentAllocations", studentAllocations);
-    // const allocationsTemp = [...studentAllocations];
     const currentAllocations = [...allocations];
-    console.log(teachers, currentAllocations);
     const modifiedAllocations = currentAllocations.map((student) => {
-      let teacher = getTeacher(student.teacher);
+      let teacher = getTeacher(student.teacher) || "";
       if (
         getAttendance(student.teacher) === "Absent" ||
         student.teacher === "" ||
@@ -106,11 +90,10 @@ const ScheduleToday = () => {
       return { ...student, teacher };
     });
     dispatch(setAllocations(modifiedAllocations));
-    // setStudentAllocations(modifiedAllocations);
   }, [teachers, teacherAttendance, JSON.stringify(allocations)]);
 
   return (
-    <div className="flex bg-schedule-bg bg-cover min-h-[calc(100vh-110px)]">
+    <div className="flex bg-schedule-bg bg-cover min-h-[calc(100vh-110px)] h-auto w-full">
       <AttendanceSection
         onTeacherAttendanceChange={handleTeacherAttendanceChange}
       />

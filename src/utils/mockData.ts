@@ -1,7 +1,13 @@
 
 export const MOCK_TEACHERS = [
     { id: "t1", name: "Professor Dumbledore", priority: 4 },
-    { id: "t2", name: "Minerva McGonagall", priority: 3 }
+    { id: "t2", name: "Minerva McGonagall", priority: 3 },
+    {
+        id: "t4",
+        name: "Horace Slughorn",
+        img: "slughorn.webp",
+        priority: 1,
+    },
 ];
 
 export const STUDENT_ALLOCATIONS = [
