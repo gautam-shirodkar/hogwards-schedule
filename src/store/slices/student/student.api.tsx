@@ -1,7 +1,7 @@
 import { IStudentAllocation } from "./student.slice";
 
 export const studentAllocationApi = (): Promise<IStudentAllocation[]> => {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     setTimeout(() => {
       resolve([
         {

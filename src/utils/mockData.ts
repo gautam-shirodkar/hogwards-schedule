@@ -1,7 +1,7 @@
 
 export const MOCK_TEACHERS = [
-    { id: "t1", name: "Professor Dumbledore", priority: 4 },
-    { id: "t2", name: "Minerva McGonagall", priority: 3 },
+    { id: "t1", name: "Professor Dumbledore", priority: 4, img: "dumbledore.png" },
+    { id: "t2", name: "Minerva McGonagall", priority: 3, img: "minervar.png" },
     {
         id: "t4",
         name: "Horace Slughorn",
@@ -16,11 +16,13 @@ export const STUDENT_ALLOCATIONS = [
         student: "Harry Potter",
         subject: "Potions Master",
         teacher: "t4",
+        img: "harry.png"
     }, {
         id: "s2",
         student: "Hermione Granger",
         subject: "Potions Master",
         teacher: "",
+        img: "hermione.png"
     },
 ]
 
