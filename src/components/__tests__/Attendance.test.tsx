@@ -14,7 +14,7 @@ const mocks = vi.hoisted(() => {
 });
 
 vi.mock("react-redux", async (importOriginal) => {
-  const mod = await importOriginal();
+  const mod: Object = await importOriginal();
   return {
     ...mod,
     useSelector: mocks.mockSelector,
