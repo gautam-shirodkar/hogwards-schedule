@@ -1,10 +1,9 @@
 import { MemoryRouter } from "react-router-dom";
-import { fireEvent, getByText, screen, within } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import { renderWithProviders } from "../../utils/test-util";
 import AttendanceSection from "../AttendanceSection";
 import { useSelector } from "react-redux";
 import { MOCK_TEACHERS } from "../../utils/mockData";
-import userEvent from "@testing-library/user-event";
 
 const mockAttendanceChange = vi.fn();
 
@@ -15,7 +14,7 @@ const mocks = vi.hoisted(() => {
 });
 
 vi.mock("react-redux", async (importOriginal) => {
-  const mod = await importOriginal();
+  const mod: Object = await importOriginal();
   return {
     ...mod,
     useSelector: mocks.mockSelector,

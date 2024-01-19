@@ -7,7 +7,7 @@ import reducer, {
 
 describe("Student slice", () => {
   test("should return the initial state", () => {
-    expect(reducer(undefined, { type: undefined })).toEqual(initialState);
+    expect(reducer(undefined, { type: "" })).toEqual(initialState);
   });
 
   test("should handle get allocations start", () => {

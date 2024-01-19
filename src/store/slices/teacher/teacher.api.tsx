@@ -1,7 +1,7 @@
 import { IAttendance, ITeacher } from "./teacher.slice";
 
 export const teacherApi = (): Promise<ITeacher[]> => {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     setTimeout(() => {
       resolve([
         {
@@ -38,7 +38,7 @@ export const teacherApi = (): Promise<ITeacher[]> => {
 };
 
 export const teacherAttendanceApi = (): Promise<IAttendance[]> => {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     setTimeout(() => {
       resolve([
         { id: "t1", attendance: "Present" },

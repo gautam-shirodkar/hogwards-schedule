@@ -18,9 +18,9 @@ export interface ITeacherstate {
   loading: boolean;
 }
 
-export const initialState = {
+export const initialState: ITeacherstate = {
   teachers: [],
-  attendance: {},
+  attendance: [],
   loading: false,
 };
 

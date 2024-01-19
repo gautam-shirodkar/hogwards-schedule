@@ -7,7 +7,7 @@ describe("NavItem", () => {
   test("It should render the links", () => {
     renderWithProviders(
       <MemoryRouter>
-        <NavItem label={"Home"} path="/home" />
+        <NavItem label={"Home"} path="/home" icon="icon.png" />
       </MemoryRouter>
     );
     expect(screen.getByText("Home")).toBeInTheDocument();

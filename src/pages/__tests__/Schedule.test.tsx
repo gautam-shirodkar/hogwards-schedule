@@ -1,5 +1,5 @@
 import { MemoryRouter } from "react-router-dom";
-import { screen } from "@testing-library/react";
+import { fireEvent, screen } from "@testing-library/react";
 import ScheduleToday from "../Schedule";
 import { renderWithProviders } from "../../utils/test-util";
 import {
@@ -7,7 +7,7 @@ import {
   STUDENT_ALLOCATIONS,
   TEACHER_ATTENDANCE,
 } from "../../utils/mockData";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 
 const mocks = vi.hoisted(() => {
   return {
@@ -17,7 +17,7 @@ const mocks = vi.hoisted(() => {
 });
 
 vi.mock("react-redux", async (importOriginal) => {
-  const mod = await importOriginal();
+  const mod: Object = await importOriginal();
   return {
     ...mod,
     useSelector: mocks.mockSelector,
@@ -57,7 +57,7 @@ describe("Schedule Today Page", () => {
     expect(screen.getByText("Professor Dumbledore")).toBeInTheDocument();
     expect(screen.getByText("Harry Potter")).toBeInTheDocument();
   });
-  test("it should render call handleAttendance when teacher attendance is changed", () => {
+  test("it should call handleAttendance when teacher attendance is changed", async () => {
     vi.mocked(useSelector).mockReturnValue({
       teachers: MOCK_TEACHERS,
       allocations: STUDENT_ALLOCATIONS,
@@ -68,7 +68,12 @@ describe("Schedule Today Page", () => {
         <ScheduleToday />
       </MemoryRouter>
     );
-    expect(screen.getByText("Professor Dumbledore")).toBeInTheDocument();
-    expect(screen.getByText("Harry Potter")).toBeInTheDocument();
+    fireEvent.select(screen.getByTestId("professor-dumbledore-attendance"), {
+      target: { value: "Absent" },
+    });
+    expect(
+      await screen.findByTestId("professor-dumbledore-attendance")
+    ).toHaveValue("Absent");
+    expect(mocks.mockDispatch).toHaveBeenCalled();
   });
 });
