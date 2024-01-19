@@ -1,9 +1,9 @@
 # Hogwarts schedule
 
-# The project is developed using
-# Vite + React + Typescript
-# Vitest for unit testing
-# Cypress + Cucumber for e2e BDD testing
+The project is developed using
+Vite + React + Typescript
+Vitest for unit testing
+Cypress + Cucumber for e2e BDD testing
 
 # Setting up the app
 To run the app locally
