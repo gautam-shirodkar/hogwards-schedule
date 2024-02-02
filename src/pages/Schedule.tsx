@@ -36,6 +36,34 @@ const ScheduleToday = () => {
     !allocations?.length && dispatch(getStudentAllocations());
   }, []);
 
+  const getTeacherPriority = (teacherId: string) => {
+    return teachers.find((teacher) => teacher.id === teacherId)?.priority!;
+  };
+
+  const reassignTeacher = (teacherId: string) => {
+    const teacherSubject = subjectTeachers.find((sub) =>
+      sub.professors.some((teacher) => teacher === teacherId)
+    )?.subject;
+    let modifiedAllocations = [...allocations];
+
+    modifiedAllocations = modifiedAllocations.map((student) => {
+      if (student.subject === teacherSubject) {
+        return {
+          ...student,
+          teacher:
+            getTeacherPriority(teacherId) <=
+              (getTeacherPriority(student.teacher) || 1) &&
+            student.assignedHistory.includes(teacherId)
+              ? teacherId
+              : student.teacher,
+        };
+      }
+
+      return student;
+    });
+    dispatch(setAllocations(modifiedAllocations));
+  };
+
   const handleTeacherAttendanceChange = (id: string, attendance: string) => {
     const updateData = [...teacherAttendance];
     const updateIndex = teacherAttendance.findIndex(
@@ -43,6 +71,10 @@ const ScheduleToday = () => {
     );
     updateData[updateIndex] = { ...updateData[updateIndex], attendance };
     dispatch(teacherActions.setTeacherAttendance(updateData));
+
+    if (attendance === "Present") {
+      reassignTeacher(id);
+    }
   };
 
   const getAttendance = (teacherId: string) => {
@@ -55,7 +87,8 @@ const ScheduleToday = () => {
 
   const assignTeacher = (student: IStudentAllocation) => {
     const currentPriority =
-      teachers.find((teacher) => teacher.id === student.teacher)?.priority || 1;
+      teachers.find((teacher) => teacher.id === student.teacher)?.priority ||
+      (student.teacher === "" ? 1 : 0);
 
     const allSubjectProfessors = subjectTeachers.find(
       (subTeach) => subTeach.subject === student.subject
@@ -80,6 +113,7 @@ const ScheduleToday = () => {
     const currentAllocations = [...allocations];
     const modifiedAllocations = currentAllocations.map((student) => {
       let teacher = getTeacher(student.teacher) || "";
+      let assignedHistory: string[] = [...student.assignedHistory];
       if (
         getAttendance(student.teacher) === "Absent" ||
         student.teacher === "" ||
@@ -87,7 +121,11 @@ const ScheduleToday = () => {
       ) {
         teacher = assignTeacher(student);
       }
-      return { ...student, teacher };
+      assignedHistory = [
+        ...assignedHistory.filter((t) => t !== teacher),
+        teacher,
+      ];
+      return { ...student, teacher, assignedHistory };
     });
     dispatch(setAllocations(modifiedAllocations));
   }, [teachers, teacherAttendance, JSON.stringify(allocations)]);

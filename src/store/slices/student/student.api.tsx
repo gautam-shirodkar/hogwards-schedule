@@ -10,6 +10,7 @@ export const studentAllocationApi = (): Promise<IStudentAllocation[]> => {
           subject: "Potions Master",
           img: "harry.webp",
           teacher: "t4",
+          assignedHistory: [],
         },
         {
           id: "s2",
@@ -17,6 +18,7 @@ export const studentAllocationApi = (): Promise<IStudentAllocation[]> => {
           subject: "Potions Master",
           img: "hermione.webp",
           teacher: "",
+          assignedHistory: [],
         },
         {
           id: "s3",
@@ -24,6 +26,7 @@ export const studentAllocationApi = (): Promise<IStudentAllocation[]> => {
           subject: "Potions Master",
           img: "ron.webp",
           teacher: "t5",
+          assignedHistory: [],
         },
         {
           id: "s4",
@@ -31,6 +34,7 @@ export const studentAllocationApi = (): Promise<IStudentAllocation[]> => {
           subject: "Potions Master",
           img: "draco.webp",
           teacher: "t4",
+          assignedHistory: [],
         },
         {
           id: "s5",
@@ -38,6 +42,7 @@ export const studentAllocationApi = (): Promise<IStudentAllocation[]> => {
           subject: "Potions Master",
           img: "padma.jpg",
           teacher: "",
+          assignedHistory: [],
         },
         {
           id: "s6",
@@ -45,6 +50,7 @@ export const studentAllocationApi = (): Promise<IStudentAllocation[]> => {
           subject: "Potions Master",
           img: "luna.jpg",
           teacher: "t5",
+          assignedHistory: [],
         },
       ]);
     }, 1000);

@@ -7,6 +7,7 @@ const responseData = [
     subject: "Potions Master",
     img: "harry.webp",
     teacher: "t4",
+    assignedHistory: [],
   },
   {
     id: "s2",
@@ -14,6 +15,7 @@ const responseData = [
     subject: "Potions Master",
     img: "hermione.webp",
     teacher: "",
+    assignedHistory: [],
   },
   {
     id: "s3",
@@ -21,6 +23,7 @@ const responseData = [
     subject: "Potions Master",
     img: "ron.webp",
     teacher: "t5",
+    assignedHistory: [],
   },
   {
     id: "s4",
@@ -28,6 +31,7 @@ const responseData = [
     subject: "Potions Master",
     img: "draco.webp",
     teacher: "t4",
+    assignedHistory: [],
   },
   {
     id: "s5",
@@ -35,6 +39,7 @@ const responseData = [
     subject: "Potions Master",
     img: "padma.jpg",
     teacher: "",
+    assignedHistory: [],
   },
   {
     id: "s6",
@@ -42,6 +47,7 @@ const responseData = [
     subject: "Potions Master",
     img: "luna.jpg",
     teacher: "t5",
+    assignedHistory: [],
   },
 ];
 

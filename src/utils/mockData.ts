@@ -16,13 +16,15 @@ export const STUDENT_ALLOCATIONS = [
         student: "Harry Potter",
         subject: "Potions Master",
         teacher: "t4",
-        img: "harry.png"
+        img: "harry.png",
+        assignedHistory: []
     }, {
         id: "s2",
         student: "Hermione Granger",
         subject: "Potions Master",
         teacher: "",
-        img: "hermione.png"
+        img: "hermione.png",
+        assignedHistory: []
     },
 ]
 

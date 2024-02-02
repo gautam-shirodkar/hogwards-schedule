@@ -6,6 +6,7 @@ export interface IStudentAllocation {
   subject: string;
   teacher: string;
   img: string;
+  assignedHistory: string[];
 }
 
 export interface IStudentState {
