@@ -27,3 +27,15 @@ Feature: Teacher Allocation to Students
         When I change attendance of "Professor Dumbledore" to "Absent"
         Then "Professor Dumbledore" attendance should be marked "Absent"
         Then Student "Harry Potter" should be assigned teacher "Not Assigned"
+
+    Scenario: Reassign original teacher once the teacher is Present
+        Given I am on home page
+        When I click schedule link
+        Then I should be redirected to the schedule page
+        When I change attendance of "Severus Snape" to "Absent"
+        Then "Severus Snape" attendance should be marked "Absent"
+        Then Student "Ron Weasley" should be assigned teacher "Rubeus Hagrid"
+        Then Student "Luna Lovegood" should be assigned teacher "Rubeus Hagrid"
+        When I change attendance of "Severus Snape" to "Present"
+        Then Student "Ron Weasley" should be assigned teacher "Severus Snape"
+        Then Student "Luna Lovegood" should be assigned teacher "Severus Snape"
